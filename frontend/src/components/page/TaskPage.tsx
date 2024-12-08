@@ -1,5 +1,11 @@
+import { Button } from "@chakra-ui/react"
+import { TaskList } from "../organism/TaskList"
+
 export const TaskPage = (() => {
     return (
-        <h1>よろしくお願いいたします。</h1>
+        <>
+            <Button colorPalette='teal' variant="solid" >ADD</Button>
+            <TaskList />
+        </>
     )
 })
