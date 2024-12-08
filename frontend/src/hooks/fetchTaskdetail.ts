@@ -3,7 +3,7 @@ import { tasktypedetail } from "../types/atoms";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export const fetchtaskdetail=(()=>{
+export const usefetchtaskdetail=(()=>{
 const [task, settask] = useState<tasktypedetail>();
 const [loading, setloading] = useState<boolean>(false);
 const { id } = useParams();

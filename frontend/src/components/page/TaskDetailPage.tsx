@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { Center, Spinner } from "@chakra-ui/react";
-import { fetchtaskdetail } from "../../hooks/fetchTaskdetail";
+import { usefetchtaskdetail } from "../../hooks/fetchTaskdetail";
 import { TaskDetailCard } from "../organism/TaskDetailCard";
 
 export const TaskDetail = (() => {
-    const { loading, gettaskdetail, task } = fetchtaskdetail();
+    const { loading, gettaskdetail, task } = usefetchtaskdetail();
     useEffect(() => {
         gettaskdetail();
     }, [gettaskdetail])
