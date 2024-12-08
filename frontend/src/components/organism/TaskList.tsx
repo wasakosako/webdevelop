@@ -13,7 +13,7 @@ export const TaskList = (() => {
         <>{loading ? <Spinner /> :
             <>
                 {tasks?.map((data) => (
-                    <Task _id={data._id} title={data.title} status={data.status} />
+                    <Task key={data.id} id={data.id} title={data.title} status={data.status} />
                 ))}
             </>
         }

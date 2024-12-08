@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { tasktype } from "../types/atoms";
 import axios from "axios";
 
+//全タスクをAPIでとってくる
 export const fetchAllTasks=(()=>{
     const [tasks, settasks] = useState<Array<tasktype>>([]);
     const [loading, setloading] = useState<boolean>(false);
