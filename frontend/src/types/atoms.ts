@@ -11,3 +11,4 @@ type detail={
 }
 
 export type tasktypedetail=tasktype&detail;
+

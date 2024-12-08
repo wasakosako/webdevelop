@@ -1,34 +1,30 @@
 import { useEffect } from "react";
-import { Button, Card, Center, Spinner } from "@chakra-ui/react";
+import { Center, Spinner } from "@chakra-ui/react";
 import { fetchtaskdetail } from "../../hooks/fetchTaskdetail";
-import { useNavigate } from "react-router-dom";
+import { TaskDetailCard } from "../organism/TaskDetailCard";
 
 export const TaskDetail = (() => {
     const { loading, gettaskdetail, task } = fetchtaskdetail();
-    const navigate = useNavigate();
     useEffect(() => {
         gettaskdetail();
-    }, [])
+    }, [gettaskdetail])
 
     return (
-        <>{
-            loading ? <Center h="800px"><Spinner /></Center> : (
+        <>
+            {loading ? (
                 <Center h="800px">
-                    <Card.Root width="320px">
-                        <Card.Body gap="2">
-                            <Card.Title mt="2">{task?.title}</Card.Title>
-                            <Card.Description>
-                                {task?.description}
-                            </Card.Description>
-                        </Card.Body>
-                        <Card.Footer justifyContent="flex-end">
-                            <Button variant="outline" onClick={(() => navigate(-1))}>戻る</Button>
-                            <Button onClick={(() => { })}>完了にする</Button>
-                        </Card.Footer>
-                    </Card.Root>
+                    <Spinner />
                 </Center>
-            )
-        }
+            ) : (
+                <Center h="800px">
+                    <TaskDetailCard
+                        title={task?.title ?? "No Title"}
+                        description={task?.description ?? "No Description"}
+                        id={task?.id ?? "0"}
+                        status={task?.status ?? false}
+                    />
+                </Center>
+            )}
         </>
     )
 })
