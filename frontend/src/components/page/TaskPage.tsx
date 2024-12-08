@@ -1,11 +1,17 @@
-import { Button } from "@chakra-ui/react"
+
+import { Modal } from "../molecule/modal";
 import { TaskList } from "../organism/TaskList"
+import { Flex, VStack } from "@chakra-ui/react";
 
 export const TaskPage = (() => {
     return (
         <>
-            <Button colorPalette='teal' variant="solid" >ADD</Button>
-            <TaskList />
+            <VStack>
+                <Flex mr={{ base: "200px", md: "820px" }}>
+                    <Modal />
+                </Flex>
+                <TaskList />
+            </VStack>
         </>
     )
 })
