@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { TaskPage } from './components/page/TaskPage.tsx'
 import { TaskDetail } from './components/page/TaskDetailPage.tsx'
 import { Login } from './components/page/Login.tsx'
+import { Register } from './components/page/Register.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/taskdetail" element={<TaskDetail />} >
             <Route path=":id" element={<TaskDetail />} />
           </Route>
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </Provider>
