@@ -10,6 +10,8 @@ app.get("/api/tasks",((req,res)=>{
     console.log(req)
 }))
 
+app.post("/api/auth/signup")
+
 app.listen(PORT,(()=>{
     console.log(`Server start: http://localhost:${PORT}`);
 }))
