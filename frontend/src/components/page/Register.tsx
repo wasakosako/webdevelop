@@ -20,7 +20,7 @@ export const Register = (() => {
 
     //dataの実例：data.username=username
     const onsubmit = handleSubmit((data) => {
-        axios.post("/api/auth/signup").then
+        axios.post("/api/auth/signup", data).then
     })
 
     return (
