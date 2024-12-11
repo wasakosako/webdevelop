@@ -1,11 +1,11 @@
-import { Button, Center, Input, Stack, Text } from "@chakra-ui/react";
+import { Button, Center, Stack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Field } from "../ui/field";
-import { PasswordInput } from "../ui/password-input";
 import axios from "axios";
 import { toaster } from "../ui/toaster";
-import { EMAIL_REGEX, PASSWORD_REGEX } from "../../constants/regex";
+import { EMAIL_REGEX } from "../../constants/regex";
 import { useNavigate } from "react-router-dom";
+import { PasswordForm } from "../molecule/passwordInput";
+import { InputField } from "../molecule/InputField";
 
 export type userProps = {
     username: string;
@@ -50,58 +50,14 @@ export const Register = () => {
     });
 
     return (
-        <Center h="100vh">
+        <Center h="100vh" >
             <form onSubmit={onsubmit}>
                 <Stack align="flex-start" maxW="lg">
-                    <Field
-                        label="ユーザー名"
-                        invalid={!!errors.username}
-                        errorText={errors.username?.message || ""}
-                    >
-                        <Input
-                            {...register("username", {
-                                required: "※ユーザー名は必須です",
-                            })}
-                            placeholder="Enter your username"
-                        />
-                    </Field>
-                    <Field
-                        label="メールアドレス"
-                        invalid={!!errors.email}
-                        errorText={errors.email?.message || ""}
-                    >
-                        <Input
-                            {...register("email", {
-                                required: "※メールアドレスは必須です",
-                                pattern: {
-                                    value: EMAIL_REGEX,
-                                    message: "※正しいメールアドレスを入力してください。",
-                                },
-                            })}
-                            placeholder="Enter your email"
-                        />
-                    </Field>
-                    <Field
-                        label="パスワード"
-                        invalid={!!errors.password}
-                        errorText={errors.password?.message || ""}
-                    >
-                        <PasswordInput
-                            {...register("password", {
-                                required: "※パスワードは必須です",
-                                pattern: {
-                                    value: PASSWORD_REGEX,
-                                    message: "※正しいパスワードを入力してください",
-                                },
-                            })}
-                            placeholder="Enter your password"
-                        />
-                    </Field>
-                    <Text fontSize="sm">
-                        パスワードは1文字以上の大文字、1文字以上の数字を組み合わせてください。
-                    </Text>
+                    <InputField errors={errors} register={register} label="ユーザー名" required="ユーザー名は必須です" placeholder="Enter your username" />
+                    <InputField errors={errors} register={register} label="メールアドレス" required="※メールアドレスは必須です"
+                        pattern={{ value: EMAIL_REGEX, message: "※正しいメールアドレスを入力してください" }} placeholder="Enter your emaiil" />
+                    <PasswordForm errors={errors} register={register} />
                     <Button type="submit"> Submit</Button>
-
 
                 </Stack>
             </form>
