@@ -1,6 +1,7 @@
-import { Schema } from "mongoose";
+import { model, Schema } from "mongoose";
+import { usertype } from "../types/user'stypes";
 
-const User=new Schema({
+const UserSchema=new Schema<usertype>({
     username:{
         type:String,
         required:true
@@ -15,3 +16,6 @@ const User=new Schema({
     }
 },{timestamps:true}
 )
+
+
+export const User=model<usertype>("User",UserSchema);
