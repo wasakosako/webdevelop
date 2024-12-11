@@ -4,7 +4,7 @@ env.config();
 
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const client = new MongoClient(process.env.MONGO_URI, {
+const client = new MongoClient(process.env.MONGO_URI || "8080", {
   serverApi: {
     version: ServerApiVersion.v1,
     strict: true,
