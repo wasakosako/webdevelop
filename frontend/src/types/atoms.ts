@@ -1,9 +1,13 @@
+//タスクの型定義
 export type tasktype=
     {
-        _id:string;
+        id:string;
         title:string;
-        status:string;
-        priority:string;
-        createdAt:Date;
-        updatedAt:Date;
+        status:boolean;
       }
+
+type detail={
+  description?:string;
+}
+
+export type tasktypedetail=tasktype&detail;

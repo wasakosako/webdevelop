@@ -1,9 +1,10 @@
-import { Button, Card, Spinner } from "@chakra-ui/react"
-import { useEffect, useState } from "react"
-import { fetchAllTasks } from "../../hooks/fetchAllTasks"
+import { Spinner } from "@chakra-ui/react"
+import { useEffect } from "react"
+import { usefetchAllTasks } from "../../hooks/fetchAllTasks"
+import { Task } from "../molecule/Task";
 
-export const Task = (() => {
-    const { loading, tasks, getallTasks } = fetchAllTasks();
+export const TaskList = (() => {
+    const { loading, tasks, getallTasks } = usefetchAllTasks();
     useEffect(() => {
         getallTasks();
     }, [])
@@ -12,13 +13,7 @@ export const Task = (() => {
         <>{loading ? <Spinner /> :
             <>
                 {tasks?.map((data) => (
-                    <Card.Root width="320px">
-                        <Card.Body gap="2">
-                            <Card.Title>{data.title}</Card.Title>
-                        </Card.Body>
-                        <Button variant="outline">View</Button>
-                        <Button>Join</Button>
-                    </Card.Root>
+                    <Task key={data.id} id={data.id} title={data.title} status={data.status} />
                 ))}
             </>
         }
