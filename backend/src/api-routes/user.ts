@@ -2,13 +2,12 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import { jwtalgo } from "../config";
 import { User } from "../models/User";
-import { app } from "../server";
 import { usertype } from "../types/user'stypes";
 import express from "express"
 
 const router = express.Router();
 
-app.post("/api/auth/signup",(async(req,res)=>{
+router.post("/signup",(async(req,res)=>{
     const payload={
         username:req.body.username,
         email:req.body.email,
@@ -22,7 +21,8 @@ app.post("/api/auth/signup",(async(req,res)=>{
     const user=new User<usertype>({
         username:payload.username,
         email:payload.email,
-        passwordHash:payload.password
+        passwordHash:payload.password,
+        token:token
     });
 
     await user.save().catch((err)=>{
@@ -30,8 +30,13 @@ app.post("/api/auth/signup",(async(req,res)=>{
     });
     await mongoose.connection.close()
     res.status(202).json(user);
-
 })) 
+
+router.get("/login",(req,res)=>{
+    res.status(200).json({
+        msg:"認証に成功しました"
+    })
+})
 
 
 export default router
