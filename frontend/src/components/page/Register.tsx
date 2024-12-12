@@ -1,74 +1,66 @@
-import { Button, Input, Stack } from "@chakra-ui/react"
+import { Button, Center, Stack } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Field } from "../ui/field";
-import { PasswordInput } from "../ui/password-input";
 import axios from "axios";
 import { toaster } from "../ui/toaster";
+import { EMAIL_REGEX } from "../../constants/regex";
+import { useNavigate } from "react-router-dom";
+import { PasswordForm } from "../molecule/passwordInput";
+import { InputField } from "../molecule/InputField";
 
 export type userProps = {
     username: string;
     email: string;
     password: string;
-}
+};
 
-export const Register = (() => {
+export const Register = () => {
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<userProps>();
+    } = useForm<userProps>({
+        defaultValues: {
+            username: "",
+            email: "",
+            password: "",
+        },
+    });
+    const navigate = useNavigate();
 
-    //dataの実例：data.username=username
-    const onsubmit = handleSubmit((data) => {
-        axios.post("/api/auth/signup", data).then
-    })
+    const onsubmit = handleSubmit(async (data) => {
+        try {
+
+            const promise = axios.post("/api/auth/signup", data).then((res) => {
+                console.log(res.status)
+            });
+            toaster.promise(promise, {
+                success: {
+                    title: "ユーザー登録が完了しました",
+                },
+                error: {
+                    title: "ユーザー登録が失敗しました",
+                },
+                loading: { title: "Uploading..." },
+
+            })
+            navigate("/Top");
+        } catch (error) {
+            console.error("Signup failed:", error);
+        }
+    });
 
     return (
-        <form onSubmit={onsubmit}>
-            <Stack gap="4" align="flex-start" maxW="sm">
-                <Field
-                    label="ユーザー名"
-                    invalid={!!errors.username}
-                    errorText={errors.username?.message}
-                >
-                    <Input {...register("username", {
-                        required: "※ユーザー名は必須です"
-                    })}
-                        placeholder="Enter your username" />
-                </Field>
-                <Field label="メールアドレス"
-                    invalid={!!errors.email}
-                    errorText={errors.email?.message}>
-                    <Input{...register("email", {
-                        required: "※メールアドレスは必須です",
-                        pattern: {
-                            value:
-                                /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
-                            message: "※正しいメールアドレスを入力してください。",
-                        },
-                    })}
-                        placeholder="Enter your email" />
-                </Field>
-                <Field label="パスワード"
-                    invalid={!!errors.password}
-                    errorText={errors.password?.message}>
-                    < PasswordInput {...register("password", {
-                        required: "※パスワードは必須です",
-                        pattern: {
-                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/,
-                            message: "※正しいパスワードを入力してください"
-                        }
-                    })}
-                        placeholder="Enter your password" />
-                </Field>
-                <Button type="submit" onClick={() => {
-                    toaster.create({
-                        title: "ユーザー登録が完了しました",
-                        type: "success"
-                    })
-                }
-                }>Submit</Button>
-            </Stack>
-        </form>
-    )
-})
+        <Center h="100vh" >
+            <form onSubmit={onsubmit}>
+                <Stack align="flex-start" maxW="lg">
+                    <InputField errors={errors} register={register} label="ユーザー名" required="ユーザー名は必須です" placeholder="Enter your username" />
+                    <InputField errors={errors} register={register} label="メールアドレス" required="※メールアドレスは必須です"
+                        pattern={{ value: EMAIL_REGEX, message: "※正しいメールアドレスを入力してください" }} placeholder="Enter your emaiil" />
+                    <PasswordForm errors={errors} register={register} />
+                    <Button type="submit"> Submit</Button>
+
+                </Stack>
+            </form>
+        </Center >
+    );
+};
