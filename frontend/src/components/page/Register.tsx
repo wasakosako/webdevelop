@@ -6,12 +6,9 @@ import { EMAIL_REGEX } from "../../constants/regex";
 import { useNavigate } from "react-router-dom";
 import { PasswordForm } from "../molecule/passwordInput";
 import { InputField } from "../molecule/InputField";
+import { userProps } from "../../types/atoms";
+import { userApi } from "../../api/users";
 
-export type userProps = {
-    username: string;
-    email: string;
-    password: string;
-};
 
 export const Register = () => {
     const {
@@ -29,10 +26,7 @@ export const Register = () => {
 
     const onsubmit = handleSubmit(async (data) => {
         try {
-
-            const promise = axios.post("/api/auth/signup", data).then((res) => {
-                console.log(res.status)
-            });
+            const promise = userApi.post(data);
             toaster.promise(promise, {
                 success: {
                     title: "ユーザー登録が完了しました",
@@ -58,7 +52,6 @@ export const Register = () => {
                         pattern={{ value: EMAIL_REGEX, message: "※正しいメールアドレスを入力してください" }} placeholder="Enter your emaiil" />
                     <PasswordForm errors={errors} register={register} />
                     <Button type="submit"> Submit</Button>
-
                 </Stack>
             </form>
         </Center >

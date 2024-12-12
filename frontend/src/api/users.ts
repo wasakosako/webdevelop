@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userProps } from "../types/atoms";
 
 axios.interceptors.response.use(function (response) {
   // Any status code that lie within the range of 2xx cause this function to trigger
@@ -10,30 +11,28 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error.response.data.msg || '時間をおいてお試しください。');
 });
 
-const ENDPOINT_URL = "/api/books";
+const ENDPOINT_URL = "/api/Auth";
 
-const bookApi = {
+export const userApi = {
 
-  async get(id) {
-    const result = await axios.get(ENDPOINT_URL + "/" + id);
+  async get(email:string) {
+    const result = await axios.get(ENDPOINT_URL + "/" + email);
     return result.data;
   },
   async getAll() {
     const result = await axios.get(ENDPOINT_URL);
     return result.data;
   },
-  async post(book) {
-    const result = await axios.post(ENDPOINT_URL, book);
+  async post(user:userProps) {
+    const result = await axios.post(ENDPOINT_URL, user);
     return result.data;
   },
-  async delete(book) {
-    const result = await axios.delete(ENDPOINT_URL + "/" + book._id);
+  async delete(user:userProps) {
+    const result = await axios.delete(ENDPOINT_URL + "/" + user.email);
     return result.data;
   },
-  async patch(book) {
-    const result = await axios.patch(ENDPOINT_URL + "/" + book._id, book);
+  async patch(user:userProps) {
+    const result = await axios.patch(ENDPOINT_URL + "/" + user.email, user);
     return result.data;
   },
 };
-
-export default bookApi;
