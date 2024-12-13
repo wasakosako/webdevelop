@@ -5,7 +5,7 @@ import { PasswordInput } from "../ui/password-input";
 import { PASSWORD_REGEX } from "../../constants/regex";
 import { FC, memo } from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { userProps } from "../page/Register";
+import { userProps } from "../../types/atoms";
 
 type passwordfield = {
     errors: FieldErrors<userProps>

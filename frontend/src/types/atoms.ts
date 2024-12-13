@@ -11,3 +11,9 @@ type detail={
 }
 
 export type tasktypedetail=tasktype&detail;
+
+export type userProps = {
+  username: string;
+  email: string;
+  password: string;
+};

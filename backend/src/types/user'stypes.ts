@@ -5,6 +5,7 @@ export type usertype={
     username:string;
     email:string;
     passwordHash:string;
+    token?:string;
     createdAt?:Date;
     updatedAt?:Date;
 }
