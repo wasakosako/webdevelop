@@ -1,6 +1,8 @@
+import env from "dotenv"
+
 export const jwtalgo={
     jwt:{
-        secret:"SECRET-KEY",
+        secret:process.env.SECRET_KEY as string,
         options:{
             algorithm:"HS256",
             expiresIn:"1d",

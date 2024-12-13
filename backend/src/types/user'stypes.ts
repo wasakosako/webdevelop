@@ -4,7 +4,7 @@ export type usertype={
     _id?:ObjectId;
     username:string;
     email:string;
-    passwordHash:string;
+    password:string;
     token?:string;
     createdAt?:Date;
     updatedAt?:Date;

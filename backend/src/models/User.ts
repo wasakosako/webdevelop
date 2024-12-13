@@ -10,7 +10,7 @@ const UserSchema=new Schema<usertype>({
         type:String,
         rquired:true
     },
-    passwordHash:{
+    password:{
         type:String,
         required:true
     }
