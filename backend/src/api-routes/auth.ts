@@ -1,14 +1,14 @@
 import jwt from "jsonwebtoken";
-import mongoose from "mongoose";
+import express from "express"
 import { jwtalgo } from "../config";
 import { User } from "../models/User";
 import { usertype } from "../types/user'stypes";
-import express from "express"
 import bcrypt from "bcrypt"
+import { Request,Response } from "express";
 
 const router = express.Router();
 
-router.post("/signup",(async(req,res)=>{
+router.post("/signup",async(req:Request ,res:Response)=>{
     const payload={
         username:req.body.username,
         email:req.body.email,
@@ -26,13 +26,11 @@ router.post("/signup",(async(req,res)=>{
     await user.save().catch((err)=>{
         console.log(err)
     });
-    await mongoose.connection.close()
-    res.status(202).json(user);
     //クライアントへJWTを発行
     const token = jwt.sign(payload,jwtalgo.jwt.secret,{expiresIn:"1d",algorithm:"RS256"});
-    return res.json({token});
+    res.status(200).json({token});
 }
-)) 
+);
 
 
 router.get("/login",(req,res)=>{

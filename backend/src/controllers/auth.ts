@@ -4,7 +4,7 @@ import { jwtalgo } from "../config";
 import { NextFunction } from "express";
 
 
-function auth(req:Request,res:Response,next:NextFunction){
+const authhook=async function auth(req:Request,res:Response,next:NextFunction){
     try{
         const token=req.headers.token;
 
