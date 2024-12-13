@@ -3,8 +3,10 @@ import { Request,Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 import { User } from "../models/User";
-import { jwtalgo } from "../config";
+import env from "dotenv"
+import { usejwt } from "../config";
 
+env.config();
 export const authregits=async(req:Request<{},{},usertype> ,res:Response)=>{
     if(req.body===null){
         return ({"msg":"error"});
@@ -28,6 +30,7 @@ export const authregits=async(req:Request<{},{},usertype> ,res:Response)=>{
         console.log(err)
     });
     //クライアントへJWTを発行
-    const token = jwt.sign(payload,jwtalgo.jwt.secret,{expiresIn:"1d",algorithm:"RS256"});
+    const token = jwt.sign(payload,usejwt.SECRET_KEY,usejwt.jwtalgo);
+    console.log(token);
     res.status(200).json({token});
 }

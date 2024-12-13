@@ -5,8 +5,7 @@ import { userProps } from "../types/atoms";
 
 export const registFucntion=((data:userProps,navigate:NavigateFunction)=>{
     try {
-        const promise = authApi.post(data);
-        console.log(promise);
+        const promise = authApi.post(data)
         toaster.promise(promise, {
             success: {
                 title: "ユーザー登録が完了しました",

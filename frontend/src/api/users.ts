@@ -42,7 +42,8 @@ export const authApi = {
     return result.data;
   },
   async post(user:userProps) {
-    const result = await axios.post(ENDPOINT_URL, user);
+    const result = await axios.post(ENDPOINT_URL+"/signup", user);
+    sessionStorage.setItem("token",result.data.token);
     return result.data;
   },
   async delete(user:userProps) {
