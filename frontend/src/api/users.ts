@@ -47,6 +47,11 @@ export const authApi = {
     sessionStorage.setItem("token",result.data.token);
     return result.data;
   },
+  async signin(user:userProps){
+    const result=await axios.post(ENDPOINT_URL+"/auth",user);
+    sessionStorage.setItem("token",result.data.token);
+    return result.data
+  },
   async delete(user:userProps) {
     const result = await axios.delete(ENDPOINT_URL + "/" + user.email);
     return result.data;
