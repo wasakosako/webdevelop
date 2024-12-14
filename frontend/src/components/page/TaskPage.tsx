@@ -15,24 +15,21 @@ export const TaskPage = (() => {
     useEffect(() => {
         try {
             const token = sessionStorage.getItem("token")
-            if (token === null) {
-                navigate("/");
-                return
-            }
+
             if (user?.email != null && user?.token != null) {
                 const data: userProps = {
                     ...user,
                     token: token as string
                 }
-                const result = authApi.tokencheck(data);
+                const result = (async () => { await authApi.tokencheck(data, navigate) });
+                result();
                 console.log(result);
                 if (!!result) {
                     navigate("/top");
                 }
             }
-            return navigate("/");
-
-        } catch {
+        } catch (err) {
+            console.log(err)
             navigate("/")
         }
 

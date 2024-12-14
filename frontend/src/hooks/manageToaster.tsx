@@ -14,7 +14,8 @@ export const usemanageToaster = (props: manageToastertype) => {
     const { login } = useAuth();
     const onSubmit = props.handleSubmit(async (data) => {
         try {
-            const promise = props.authApi(data, login);
+            const result = (async () => props.authApi(data, login));
+            const promise = result();
             toaster.promise(promise, {
                 success: {
                     title: "ログインに成功しました",
