@@ -8,6 +8,7 @@ import { PasswordForm } from "../molecule/passwordInput"
 import { authApi } from "../../api/auth"
 import { toaster } from "../ui/toaster"
 import { useEffect } from "react"
+import { useAuth } from "../../context/authContext"
 
 export const Login = (() => {
     const navigate = useNavigate();
@@ -18,9 +19,13 @@ export const Login = (() => {
     } = useForm<userProps>();
 
 
+    const authcontext = useAuth();
+
+    const { login } = authcontext
+
     const onSubmit = handleSubmit(async (data) => {
         try {
-            const promise = authApi.login(data);
+            const promise = authApi.login(data, login);
             toaster.promise(promise, {
                 success: {
                     title: "ログインに成功しました",

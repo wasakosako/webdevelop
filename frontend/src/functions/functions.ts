@@ -2,10 +2,12 @@ import { NavigateFunction } from "react-router-dom";
 import { authApi } from "../api/auth";
 import { toaster } from "../components/ui/toaster";
 import { userProps } from "../types/atoms";
+import { useAuth } from "../context/authContext";
 
 export const registFucntion=((data:userProps,navigate:NavigateFunction)=>{
+    const {login}=useAuth();
     try {
-        const promise = authApi.signup(data)
+        const promise = authApi.signup(data,login)
         toaster.promise(promise, {
             success: {
                 title: "ユーザー登録が完了しました",

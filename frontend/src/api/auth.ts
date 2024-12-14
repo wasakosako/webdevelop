@@ -34,14 +34,24 @@ authClient.interceptors.request.use((config)=>{
 
 export const authApi = {
 
-  async signup(user:userProps) {
+  async signup(user:userProps,login:(user:userProps)=>void) {
     const result = await axios.post(ENDPOINT_URL+"/signup", user);
+    if(result.status!==200){
+      return {"msg":"エラーです"};
+    }
     sessionStorage.setItem("token",result.data.token);
+    const data={...user,token:result.data.token as string}
+    login(data);
     return result.data;
   },
-  async login(user:userProps){
+  async login(user:userProps,login:(user:userProps)=>void){
     const result=await axios.post(ENDPOINT_URL+"/login",user);
+    if(result.status!==200){
+      return {"msg":"エラーです"};
+    }
     sessionStorage.setItem("token",result.data.token);
+    const data={...user,token:result.data.token as string}
+    login(data);
     return result.data
   },
   async logout(user:userProps){
