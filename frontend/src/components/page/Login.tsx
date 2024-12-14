@@ -44,7 +44,7 @@ export const Login = (() => {
     useEffect(() => {
         //todo:トークンの正当性確認
         if (sessionStorage.getItem("token")) {
-            navigate("/Top");
+            navigate("/app/top");
         }
     }, [sessionStorage.getItem("token")]);
 

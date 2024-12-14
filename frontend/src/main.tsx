@@ -8,6 +8,7 @@ import { Login } from './components/page/Login.tsx'
 import { Register } from './components/page/Register.tsx'
 import { Toaster } from './components/ui/toaster.tsx'
 import { AuthProvider } from './context/authContext.tsx'
+import { Test } from './Test.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -17,11 +18,12 @@ createRoot(document.getElementById('root')!).render(
           <Toaster />
           <Routes>
             <Route path="/" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/top" element={<TaskPage />} />
+            <Route path="/test" element={<Test />} />
             <Route path="/taskdetail" element={<TaskDetail />} >
               <Route path=":id" element={<TaskDetail />} />
             </Route>
-            <Route path="/register" element={<Register />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

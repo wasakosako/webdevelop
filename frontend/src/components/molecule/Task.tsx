@@ -9,7 +9,7 @@ export const Task = memo((props: tasktype) => {
     const [checkStatus, setcheckStatus] = useState<boolean>(props.status);
     const navigate = useNavigate();
     const handleClick = useCallback(() => {
-        navigate(`/taskdetail/${props.id}`)
+        navigate(`/app/taskdetail/${props.id}`)
     }, [])
     return (
         //ステータスがcheckedでないもののみを表示。クリックするとタスクを完了判定とする。
