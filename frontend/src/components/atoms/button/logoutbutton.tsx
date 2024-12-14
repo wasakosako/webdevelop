@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { NavigateFunction } from 'react-router-dom';
 import styled from 'styled-components';
 
-export const LogoutButton = (props: { logout: () => void, navigate: NavigateFunction }) => {
+export const LogoutButton = memo((props: { logout: () => void, navigate: NavigateFunction }) => {
   return (
     <StyledWrapper>
       <button className="Btn" onClick={(() => {
@@ -14,7 +15,7 @@ export const LogoutButton = (props: { logout: () => void, navigate: NavigateFunc
       </button>
     </StyledWrapper >
   );
-}
+})
 
 const StyledWrapper = styled.div`
   .Btn {
@@ -82,5 +83,5 @@ const StyledWrapper = styled.div`
   /* button click effect*/
   .Btn:active {
     transform: translate(2px ,2px);
-  }`;
+}`;
 

@@ -1,9 +1,9 @@
 import { Input } from "@chakra-ui/react";
 import { Field } from "../ui/field";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { AttributeOfInputField } from "../../types/molecules";
 
-export const InputField: FC<AttributeOfInputField> = (props) => {
+export const InputField: FC<AttributeOfInputField> = memo((props) => {
     const { errors, register, registedname, label, required, pattern, placeholder } = props;
 
     // register オプションを動的に構築
@@ -29,5 +29,5 @@ export const InputField: FC<AttributeOfInputField> = (props) => {
             />
         </Field>
     );
-};
+});
 
