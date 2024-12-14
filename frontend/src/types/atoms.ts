@@ -3,9 +3,12 @@ import { FieldErrors, UseFormRegister } from "react-hook-form";
 //タスクの型定義
 export type tasktype=
     {
-        id:string;
-        title:string;
-        status:boolean;
+      id:string;
+      title: string;
+      description?: string;
+      status: boolean;
+      priority?: "High"|"Middle"|"Low",
+      duedate?: Date
       }
 
 type detail={

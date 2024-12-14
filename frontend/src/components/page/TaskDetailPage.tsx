@@ -19,9 +19,9 @@ export const TaskDetail = (() => {
             ) : (
                 <Center h="800px">
                     <TaskDetailCard
+                        id={task?.id ?? "undefined"}
                         title={task?.title ?? "No Title"}
                         body={task?.body ?? "No Description"}
-                        id={task?.id ?? "0"}
                         status={task?.status ?? false}
                     />
                 </Center>

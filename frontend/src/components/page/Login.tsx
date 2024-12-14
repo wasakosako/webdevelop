@@ -6,64 +6,45 @@ import { userProps } from "../../types/atoms"
 import { InputField } from "../molecule/InputField"
 import { PasswordForm } from "../molecule/passwordInput"
 import { authApi } from "../../api/auth"
-import { toaster } from "../ui/toaster"
 import { useEffect } from "react"
 import { useAuth } from "../../context/authContext"
 import { TCard } from "../organism/Card"
+import { usemanageToaster } from "../../hooks/manageToaster"
 
 
 export const Login = (() => {
     const navigate = useNavigate();
+    const { login, user } = useAuth();
     const {
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<userProps>();
-
-
-    const { login, user } = useAuth();
-
-
-    const onSubmit = handleSubmit(async (data) => {
-        useAuth();
-        try {
-            const promise = authApi.login(data, login);
-            toaster.promise(promise, {
-                success: {
-                    title: "ログインに成功しました",
-                },
-                error: {
-                    title: "ログインに失敗しました",
-                },
-                loading: { title: "Uploading..." },
-            });
-            navigate("/Top");
-        } catch (error) {
-            console.error("Signup failed:", error);
+    } = useForm<userProps>({
+        defaultValues: {
+            username: "",
+            email: "",
+            password: "",
         }
-    })
+    });
+
+    const { onSubmit } = usemanageToaster({ handleSubmit, authApi: authApi.login });
 
     useEffect(() => {
         //todo:トークンの正当性確認
         try {
             const token = sessionStorage.getItem("token")
-            if (token === null) {
-                navigate("/");
-                return
-            }
             if (user?.email != null && user?.token != null) {
                 const data: userProps = {
                     ...user,
                     token: token as string
                 }
-                const result = authApi.tokencheck(data);
-                console.log(result);
-                if (!!result) {
+                const result = (async () => { await authApi.tokencheck(data, navigate) });
+                const answser = result();
+                console.log(answser);
+                if (!!answser) {
                     navigate("/top");
                 }
             }
-            return navigate("/");
-
         } catch {
             navigate("/")
         }

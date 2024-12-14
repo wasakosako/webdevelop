@@ -1,9 +1,9 @@
 import { Spinner } from "@chakra-ui/react"
-import { useEffect } from "react"
+import { memo, useEffect } from "react"
 import { usefetchAllTasks } from "../../hooks/fetchAllTasks"
 import { Task } from "../molecule/Task";
 
-export const TaskList = (() => {
+export const TaskList = memo(() => {
     const { loading, tasks, getallTasks } = usefetchAllTasks();
     useEffect(() => {
         getallTasks();

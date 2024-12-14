@@ -12,7 +12,7 @@ export const useAuth = () => {
 export const AuthContext = createContext<authcontexttype | undefined>(undefined);
 
 export const AuthProvider = (({ children }: { children: ReactNode }) => {
-    const [user, setUser] = useState<userProps>();
+    const [user, setUser] = useState<userProps | undefined>();
 
 
     const login = useCallback((userdata: userProps) => { setUser(userdata) }, []);
