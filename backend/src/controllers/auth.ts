@@ -7,7 +7,7 @@ import env from "dotenv"
 import { usejwt } from "../config";
 
 env.config();
-export const authregits=async(req:Request<{},{},usertype> ,res:Response)=>{
+export const authregits=(async(req:Request<{},{},usertype> ,res:Response)=>{
     if(req.body===null){
         return ({"msg":"error"});
     }
@@ -32,5 +32,30 @@ export const authregits=async(req:Request<{},{},usertype> ,res:Response)=>{
     //クライアントへJWTを発行
     const token = jwt.sign(payload,usejwt.SECRET_KEY,usejwt.jwtalgo);
     console.log(token);
+    res.status(200).json({token});
+});
+
+export const authlogin=async(req:Request<{},{},usertype>,res:Response)=>{
+    if(req.body===null){
+        return res.status(400).json({"msg":"ログインに失敗しました"})
+    }
+    const payload:usertype={
+        email:req.body.email,
+        password:req.body.password
+    }
+
+    const reqUser=await User.findOne({"email":payload.email});
+    
+    if(reqUser==null){
+        return res.status(400).json({"msg":"存在しないユーザーです"});
+    }
+
+    const result=await bcrypt.compare(payload.password,reqUser?.password)
+    console.log(result);
+
+    if(!result){
+        return res.status(400).json({"msg":"パスワードが間違っています"});
+    }
+    const token=jwt.sign(payload,usejwt.SECRET_KEY,usejwt.jwtalgo);
     res.status(200).json({token});
 }

@@ -5,7 +5,9 @@ import { useForm } from "react-hook-form"
 import { userProps } from "../../types/atoms"
 import { InputField } from "../molecule/InputField"
 import { PasswordForm } from "../molecule/passwordInput"
-import { authApi } from "../../api/users"
+import { authApi } from "../../api/auth"
+import { toaster } from "../ui/toaster"
+import { useEffect } from "react"
 
 export const Login = (() => {
     const navigate = useNavigate();
@@ -17,10 +19,29 @@ export const Login = (() => {
 
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data); //実例：data={メールアドレス,パスワード}
-        const result = authApi.signin(data);
-        console.log(result);
+        try {
+            const promise = authApi.login(data);
+            toaster.promise(promise, {
+                success: {
+                    title: "ログインに成功しました",
+                },
+                error: {
+                    title: "ログインに失敗しました",
+                },
+                loading: { title: "Uploading..." },
+            });
+            navigate("/Top");
+        } catch (error) {
+            console.error("Signup failed:", error);
+        }
     })
+
+    useEffect(() => {
+        //todo:トークンの正当性確認
+        if (sessionStorage.getItem("token")) {
+            navigate("/Top");
+        }
+    }, [sessionStorage.getItem("token")]);
 
     return (
         <Center h="800px">
