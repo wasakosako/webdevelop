@@ -13,9 +13,13 @@ axios.interceptors.response.use(function (response) {
 
 const ENDPOINT_URL = "/api/auth";
 
+export type authapitype={
+  signup:(user: userProps, login: (user: userProps) => void) => Promise<any>;
+  login:(user: userProps, login: (user: userProps) => void) => Promise<any>;
+  tokencheck:(user: userProps) => Promise<any>;
+}
 
-
-export const authApi = {
+export const authApi:authapitype = {
 
   async signup(user:userProps,login:(user:userProps)=>void) {
     const result = await axios.post(ENDPOINT_URL+"/signup", user);

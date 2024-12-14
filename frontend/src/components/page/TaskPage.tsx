@@ -11,7 +11,7 @@ import { useAuth } from "../../context/authContext";
 export const TaskPage = (() => {
     const navigate = useNavigate();
 
-    const { login, user } = useAuth();
+    const { user } = useAuth();
     useEffect(() => {
         try {
             const token = sessionStorage.getItem("token")

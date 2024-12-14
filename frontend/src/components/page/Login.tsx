@@ -10,38 +10,19 @@ import { toaster } from "../ui/toaster"
 import { useEffect } from "react"
 import { useAuth } from "../../context/authContext"
 import { TCard } from "../organism/Card"
+import { usemanageToaster } from "../../hooks/manageToaster"
 
 
 export const Login = (() => {
     const navigate = useNavigate();
+    const { login, user } = useAuth();
     const {
         register,
         handleSubmit,
         formState: { errors }
     } = useForm<userProps>();
 
-
-    const { login, user } = useAuth();
-
-
-    const onSubmit = handleSubmit(async (data) => {
-        useAuth();
-        try {
-            const promise = authApi.login(data, login);
-            toaster.promise(promise, {
-                success: {
-                    title: "ログインに成功しました",
-                },
-                error: {
-                    title: "ログインに失敗しました",
-                },
-                loading: { title: "Uploading..." },
-            });
-            navigate("/Top");
-        } catch (error) {
-            console.error("Signup failed:", error);
-        }
-    })
+    const { onSubmit } = usemanageToaster({ handleSubmit, authApi: authApi.login });
 
     useEffect(() => {
         //todo:トークンの正当性確認

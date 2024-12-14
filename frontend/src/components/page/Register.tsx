@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { PasswordForm } from "../molecule/passwordInput";
 import { InputField } from "../molecule/InputField";
 import { userProps } from "../../types/atoms";
-import { registFucntion } from "../../functions/functions";
+import { registFucntion } from "../../functions/functions.tsx";
+import { useAuth } from "../../context/authContext.tsx";
 
 
 export const Register = () => {
+    const { login } = useAuth();
     const {
         register,
         handleSubmit,
@@ -23,7 +25,7 @@ export const Register = () => {
     const navigate = useNavigate();
 
     const onsubmit = handleSubmit(async (data) => {
-        registFucntion(data, navigate);
+        registFucntion(data, navigate, login);
     });
 
     return (
