@@ -30,7 +30,7 @@ export const authregits=(async(req:Request<{},{},usertype> ,res:Response)=>{
         console.log(err)
     });
     //クライアントへJWTを発行
-    const token = jwt.sign(payload,usejwt.SECRET_KEY,usejwt.jwtalgo);
+    const token = jwt.sign(user.email,usejwt.SECRET_KEY,usejwt.jwtalgo);
     console.log(token);
     res.status(200).json({token});
 });
@@ -58,4 +58,15 @@ export const authlogin=async(req:Request<{},{},usertype>,res:Response)=>{
     }
     const token=jwt.sign(payload,usejwt.SECRET_KEY,usejwt.jwtalgo);
     res.status(200).json({token});
+}
+
+export const checkTokenOfAuth=async(req:Request<{},{},usertype>,res:Response)=>{
+    if(!req.body.token){
+        return res.status(400).json({"msg":"正しいリクエストではありません"})
+    }
+    const decoded=jwt.verify(req.body.token,usejwt.SECRET_KEY);
+    if(decoded!==req.body.email){
+        return res.status(400).json({"msg":"正しいリクエストではありません"})
+    }
+    res.status(200).json({"msg":"認証に成功しました"});
 }

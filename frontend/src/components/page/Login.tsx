@@ -1,4 +1,4 @@
-import { Button, Card, Center, Stack, Text } from "@chakra-ui/react"
+import { Button, Center, Stack, Text } from "@chakra-ui/react"
 import { EMAIL_REGEX } from "../../constants/regex"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
@@ -11,6 +11,7 @@ import { useEffect } from "react"
 import { useAuth } from "../../context/authContext"
 import { TCard } from "../organism/Card"
 
+
 export const Login = (() => {
     const navigate = useNavigate();
     const {
@@ -20,11 +21,11 @@ export const Login = (() => {
     } = useForm<userProps>();
 
 
-    const authcontext = useAuth();
+    const { login, user } = useAuth();
 
-    const { login } = authcontext
 
     const onSubmit = handleSubmit(async (data) => {
+        useAuth();
         try {
             const promise = authApi.login(data, login);
             toaster.promise(promise, {
@@ -44,10 +45,29 @@ export const Login = (() => {
 
     useEffect(() => {
         //todo:トークンの正当性確認
-        if (sessionStorage.getItem("token")) {
-            navigate("/app/top");
+        try {
+            const token = sessionStorage.getItem("token")
+            if (token === null) {
+                navigate("/");
+                return
+            }
+            if (user?.email != null && user?.token != null) {
+                const data: userProps = {
+                    ...user,
+                    token: token as string
+                }
+                const result = authApi.tokencheck(data);
+                console.log(result);
+                if (!!result) {
+                    navigate("/top");
+                }
+            }
+            return navigate("/");
+
+        } catch {
+            navigate("/")
         }
-    }, [sessionStorage.getItem("token")]);
+    }, []);
 
     return (
         <Center h="800px">
