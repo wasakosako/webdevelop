@@ -1,10 +1,18 @@
-import { Button, Card, Center, Input, Stack, Text } from "@chakra-ui/react"
-import { Field } from "../ui/field"
-import { PasswordInput } from "../ui/password-input"
+import { Button, Card, Center, Stack, Text } from "@chakra-ui/react"
+import { EMAIL_REGEX } from "../../constants/regex"
 import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import { userProps } from "../../types/atoms"
+import { InputField } from "../molecule/InputField"
+import { PasswordForm } from "../molecule/passwordInput"
 
 export const Login = (() => {
     const navigate = useNavigate();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<userProps>();
     return (
         <Center h="800px">
             <Card.Root w="md">
@@ -13,17 +21,13 @@ export const Login = (() => {
                 </Card.Header>
                 <Card.Body>
                     <Stack gap="4" w="full">
-                        <Field label="ユーザー名">
-                            <Input />
-                        </Field>
-                        <Field label="パスワード">
-                            <PasswordInput />
-                        </Field>
+                        <InputField errors={errors} register={register} label="メールアドレス" registedname="email" required="メールアドレスを入力してください" placeholder="Enter your Email"
+                            pattern={{ value: EMAIL_REGEX, message: "正しいメールアドレスを入力してください" }} />
+                        <PasswordForm errors={errors} register={register} login={true} />
                     </Stack>
                     <Text mt="5" onClick={(() => { navigate("/register") })} cursor="pointer">新規登録はこちら</Text >
                 </Card.Body>
                 <Card.Footer justifyContent="flex-end">
-                    <Button variant="outline">Cancel</Button>
                     <Button variant="solid">Sign in</Button>
                 </Card.Footer>
             </Card.Root>

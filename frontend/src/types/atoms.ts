@@ -1,3 +1,5 @@
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+
 //タスクの型定義
 export type tasktype=
     {
@@ -17,3 +19,9 @@ export type userProps = {
   email: string;
   password: string;
 };
+
+export type passwordfield = {
+  errors: FieldErrors<userProps>
+  register: UseFormRegister<userProps>
+  login?: boolean
+}
