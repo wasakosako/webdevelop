@@ -11,12 +11,12 @@ const gettaskdetail = useCallback(() => {
     setloading(true);
     //todo:/api/${id}に変更する
     axios.get<tasktypedetail>(`https://jsonplaceholder.typicode.com/todos/${id}`).then((value) => {
-        const { id, title, status, description } = value.data
+        const { id, title, status, body } = value.data
         settask({
             id,
             title,
             status,
-            description
+            body
         })
     }).catch((err) => { console.log(err) }).finally(() => { setloading(false) })
 },[id])

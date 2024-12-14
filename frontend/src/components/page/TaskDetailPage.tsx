@@ -20,7 +20,7 @@ export const TaskDetail = (() => {
                 <Center h="800px">
                     <TaskDetailCard
                         title={task?.title ?? "No Title"}
-                        description={task?.description ?? "No Description"}
+                        body={task?.body ?? "No Description"}
                         id={task?.id ?? "0"}
                         status={task?.status ?? false}
                     />

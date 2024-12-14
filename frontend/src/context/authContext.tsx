@@ -1,13 +1,6 @@
 import { useState, createContext, ReactNode, useCallback, useContext } from "react"
-import { userProps } from "../types/atoms";
+import { authcontexttype, userProps } from "../types/atoms";
 
-
-
-export type authcontexttype = {
-    user: userProps | null | undefined;
-    login: (user: userProps) => void;
-    logout: () => void;
-};
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
