@@ -23,6 +23,7 @@ const authClient=axios.create({
 authClient.interceptors.request.use((config)=>{
     const token = sessionStorage.getItem("authToken");
     if(token){
+
       config.headers.Authorization=`Bearer ${token}`
     }
     return config
@@ -42,8 +43,14 @@ export const authApi = {
     return result.data;
   },
   async post(user:userProps) {
-    const result = await axios.post(ENDPOINT_URL, user);
+    const result = await axios.post(ENDPOINT_URL+"/signup", user);
+    sessionStorage.setItem("token",result.data.token);
     return result.data;
+  },
+  async signin(user:userProps){
+    const result=await axios.post(ENDPOINT_URL+"/auth",user);
+    sessionStorage.setItem("token",result.data.token);
+    return result.data
   },
   async delete(user:userProps) {
     const result = await axios.delete(ENDPOINT_URL + "/" + user.email);

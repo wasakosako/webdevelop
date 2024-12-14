@@ -1,5 +1,5 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { userProps } from "../components/page/Register";
+import { userProps } from "./atoms";
 
 export type HookInputfield = {
   errors: FieldErrors<userProps>;
@@ -14,6 +14,7 @@ type AttributeOfField = {
     message: string;
   };
   placeholder: string;
+  registedname:"username"|"email"|"password";
 };
 
 export type AttributeOfInputField = HookInputfield & AttributeOfField;

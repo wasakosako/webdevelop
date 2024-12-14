@@ -4,7 +4,7 @@ import { FC } from "react";
 import { AttributeOfInputField } from "../../types/molecules";
 
 export const InputField: FC<AttributeOfInputField> = (props) => {
-    const { errors, register, label, required, pattern, placeholder } = props;
+    const { errors, register, registedname, label, required, pattern, placeholder } = props;
 
     // register オプションを動的に構築
     const registerOptions: any = {
@@ -24,7 +24,7 @@ export const InputField: FC<AttributeOfInputField> = (props) => {
             errorText={errors.email?.message || ""}
         >
             <Input
-                {...register("email", registerOptions)}
+                {...register(registedname, registerOptions)}
                 placeholder={placeholder}
             />
         </Field>

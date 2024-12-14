@@ -1,5 +1,11 @@
 {
-  "dependencies": {
-    "react-infinite-scroller": "^1.2.6"
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "ts:backend": "cd backend && npm run ts",
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run ts:backend\""
+  },
+
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
