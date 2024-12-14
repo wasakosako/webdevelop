@@ -13,24 +13,7 @@ axios.interceptors.response.use(function (response) {
 
 const ENDPOINT_URL = "/api/auth";
 
-const authClient=axios.create({
-  baseURL:ENDPOINT_URL,
-  headers:{
-    "Content-Type":"application/json",
-  }
-})
 
-authClient.interceptors.request.use((config)=>{
-    const token = sessionStorage.getItem("authToken");
-    if(token){
-
-      config.headers.Authorization=`Bearer ${token}`
-    }
-    return config
-},error=>{
-  return Promise.reject(error);
-}
-)
 
 export const authApi = {
 

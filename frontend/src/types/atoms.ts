@@ -9,7 +9,7 @@ export type tasktype=
       }
 
 type detail={
-  description?:string;
+  body?:string;
 }
 
 export type tasktypedetail=tasktype&detail;
@@ -26,3 +26,10 @@ export type passwordfield = {
   register: UseFormRegister<userProps>
   login?: boolean
 }
+
+
+export type authcontexttype = {
+    user: userProps | null | undefined;
+    login: (user: userProps) => void;
+    logout: () => void;
+};
