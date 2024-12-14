@@ -21,8 +21,7 @@ createRoot(document.getElementById('root')!).render(
             <Route path="/register" element={<Register />} />
             <Route path="/top" element={<TaskPage />} />
             <Route path="/test" element={<Test />} />
-            <Route path="/taskdetail" element={<TaskDetail />} >
-              <Route path=":id" element={<TaskDetail />} />
+            <Route path="/taskdetail/:id" element={<TaskDetail />} >
             </Route>
           </Routes>
         </AuthProvider>
