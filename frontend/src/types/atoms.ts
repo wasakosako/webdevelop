@@ -18,6 +18,7 @@ export type userProps = {
   username?: string;
   email: string;
   password: string;
+  token?:string;
 };
 
 export type passwordfield = {

@@ -11,7 +11,7 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error.response.data.msg || '時間をおいてお試しください。');
 });
 
-const ENDPOINT_URL = "/api/Auth";
+const ENDPOINT_URL = "/api/auth";
 
 const authClient=axios.create({
   baseURL:ENDPOINT_URL,
@@ -34,30 +34,29 @@ authClient.interceptors.request.use((config)=>{
 
 export const authApi = {
 
-  async get(email:string) {
-    const result = await axios.get(ENDPOINT_URL + "/" + email);
-    return result.data;
-  },
-  async getAll() {
-    const result = await axios.get(ENDPOINT_URL);
-    return result.data;
-  },
-  async post(user:userProps) {
+  async signup(user:userProps,login:(user:userProps)=>void) {
     const result = await axios.post(ENDPOINT_URL+"/signup", user);
+    if(result.status!==200){
+      return {"msg":"エラーです"};
+    }
     sessionStorage.setItem("token",result.data.token);
+    const data={...user,token:result.data.token as string}
+    login(data);
     return result.data;
   },
-  async signin(user:userProps){
-    const result=await axios.post(ENDPOINT_URL+"/auth",user);
+  async login(user:userProps,login:(user:userProps)=>void){
+    const result=await axios.post(ENDPOINT_URL+"/login",user);
+    if(result.status!==200){
+      return {"msg":"エラーです"};
+    }
     sessionStorage.setItem("token",result.data.token);
+    const data={...user,token:result.data.token as string}
+    login(data);
     return result.data
   },
-  async delete(user:userProps) {
-    const result = await axios.delete(ENDPOINT_URL + "/" + user.email);
-    return result.data;
-  },
-  async patch(user:userProps) {
-    const result = await axios.patch(ENDPOINT_URL + "/" + user.email, user);
-    return result.data;
-  },
+  async logout(user:userProps){
+    const result=await axios.post(ENDPOINT_URL+"/logout",user);
+    sessionStorage.removeItem("token");
+    return result.data
+  }
 };

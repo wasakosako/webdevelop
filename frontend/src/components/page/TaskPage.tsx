@@ -8,7 +8,6 @@ export const TaskPage = (() => {
             <VStack>
                 <Flex mr={{ base: "200px", md: "820px" }}>
                     <Modal />
-
                 </Flex>
                 <TaskList />
             </VStack>
