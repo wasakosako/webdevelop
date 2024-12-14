@@ -37,8 +37,8 @@ export const authApi = {
     login(data);
     return result.data
   },
-  async logout(user:userProps){
-    const result=await axios.post(ENDPOINT_URL+"/logout",user);
+  async tokencheck(user:userProps){
+    const result=await axios.post(ENDPOINT_URL+"/tokencheck",user);
     sessionStorage.removeItem("token");
     return result.data
   }

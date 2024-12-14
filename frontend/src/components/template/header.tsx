@@ -1,8 +1,8 @@
 import { Box, Flex, Text } from "@chakra-ui/react"
-import { LogoutButton } from "../atoms/logoutbutton"
+import { LogoutButton } from "../atoms/button/logoutbutton"
 import { ReactNode } from "react"
 import { useAuth } from "../../context/authContext"
-import { LoginButton } from "../atoms/loginbutton"
+import { LoginButton } from "../atoms/button/loginbutton"
 import { useNavigate } from "react-router-dom"
 
 export const Header = (({ children }: { children: ReactNode }) => {

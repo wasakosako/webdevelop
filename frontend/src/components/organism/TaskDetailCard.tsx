@@ -1,4 +1,4 @@
-import { Button, Card, Center, Spinner, Text } from "@chakra-ui/react"
+import { Button, Center, Spinner, Text } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
 import { tasktypedetail } from "../../types/atoms";
 import { memo } from "react";
