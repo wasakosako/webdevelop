@@ -8,6 +8,7 @@ type Cardtype = {
     title: string;
     body: ReactNode;
     footer: ReactNode;
+    other?: ReactNode;
 }
 
 export const TCard = memo((props: Cardtype) => {
@@ -18,6 +19,7 @@ export const TCard = memo((props: Cardtype) => {
             <CardHeader title={props.title} />
             <Cardbody body={props.body} />
             <CardFooter footer={props.footer} />
+            {props.other}
         </Card.Root>
 
     )

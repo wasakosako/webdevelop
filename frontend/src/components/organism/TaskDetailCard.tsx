@@ -18,8 +18,9 @@ export const TaskDetailCard = memo((props: tasktypedetail) => {
                     putTask();
                 })}>完了にする</Button>
             </>
-            )} />
-            <Center mb="20px">{putid == undefined ? <></> : loading ? <Spinner /> : <Text ml="85px">{`${putid}を完了にしました`}</Text>}</Center>
+            )}
+                other={<Center mb="20px">{putid == undefined ? <></> : loading ? <Spinner /> : <Text ml="85px">{`${putid}を完了にしました`}</Text>}</Center>}
+            />
         </>
     )
 })

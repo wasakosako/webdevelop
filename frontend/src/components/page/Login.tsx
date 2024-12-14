@@ -1,4 +1,4 @@
-import { Button, Card, Center, Stack, Text } from "@chakra-ui/react"
+import { Button, Center, Stack, Text } from "@chakra-ui/react"
 import { EMAIL_REGEX } from "../../constants/regex"
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"

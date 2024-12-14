@@ -24,7 +24,7 @@ export const Header = (({ children }: { children: ReactNode }) => {
                         }
                     </Box>
                     <Box mt={7} mr={10}>
-                        <LogoutButton logout={logout} />
+                        <LogoutButton logout={logout} navigate={navigate} />
                     </Box>
                 </Flex>
             </Box>
