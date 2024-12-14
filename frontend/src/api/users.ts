@@ -1,4 +1,5 @@
 import axios from "axios";
+import { userProps } from "../types/atoms";
 
 axios.interceptors.response.use(function (response) {
   // Any status code that lie within the range of 2xx cause this function to trigger
@@ -10,30 +11,53 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error.response.data.msg || '時間をおいてお試しください。');
 });
 
-const ENDPOINT_URL = "/api/books";
+const ENDPOINT_URL = "/api/Auth";
 
-const bookApi = {
+const authClient=axios.create({
+  baseURL:ENDPOINT_URL,
+  headers:{
+    "Content-Type":"application/json",
+  }
+})
 
-  async get(id) {
-    const result = await axios.get(ENDPOINT_URL + "/" + id);
+authClient.interceptors.request.use((config)=>{
+    const token = sessionStorage.getItem("authToken");
+    if(token){
+
+      config.headers.Authorization=`Bearer ${token}`
+    }
+    return config
+},error=>{
+  return Promise.reject(error);
+}
+)
+
+export const authApi = {
+
+  async get(email:string) {
+    const result = await axios.get(ENDPOINT_URL + "/" + email);
     return result.data;
   },
   async getAll() {
     const result = await axios.get(ENDPOINT_URL);
     return result.data;
   },
-  async post(book) {
-    const result = await axios.post(ENDPOINT_URL, book);
+  async post(user:userProps) {
+    const result = await axios.post(ENDPOINT_URL+"/signup", user);
+    sessionStorage.setItem("token",result.data.token);
     return result.data;
   },
-  async delete(book) {
-    const result = await axios.delete(ENDPOINT_URL + "/" + book._id);
+  async signin(user:userProps){
+    const result=await axios.post(ENDPOINT_URL+"/auth",user);
+    sessionStorage.setItem("token",result.data.token);
+    return result.data
+  },
+  async delete(user:userProps) {
+    const result = await axios.delete(ENDPOINT_URL + "/" + user.email);
     return result.data;
   },
-  async patch(book) {
-    const result = await axios.patch(ENDPOINT_URL + "/" + book._id, book);
+  async patch(user:userProps) {
+    const result = await axios.patch(ENDPOINT_URL + "/" + user.email, user);
     return result.data;
   },
 };
-
-export default bookApi;

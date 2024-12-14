@@ -6,11 +6,11 @@ import { usePutTask } from "../../hooks/putTask";
 
 export const TaskDetailCard = memo((props: tasktypedetail) => {
     const navigate = useNavigate();
-    const { putid,setputid,loading,putTask}=usePutTask();
+    const { putid, setputid, loading, putTask } = usePutTask();
 
     return (
 
-        <Card.Root width="320px">
+        <Card.Root w="md">
             <Card.Body gap="2">
                 <Card.Title mt="2">{props.title}</Card.Title>
                 <Card.Description>
@@ -24,7 +24,7 @@ export const TaskDetailCard = memo((props: tasktypedetail) => {
                     putTask();
                 })}>完了にする</Button>
             </Card.Footer>
-            <Center mb="20px">{putid==undefined? <></>:loading ? <Spinner/>:<Text ml="85px">{`${putid}を完了にしました`}</Text> }</Center>
+            <Center mb="20px">{putid == undefined ? <></> : loading ? <Spinner /> : <Text ml="85px">{`${putid}を完了にしました`}</Text>}</Center>
         </Card.Root>
 
     )

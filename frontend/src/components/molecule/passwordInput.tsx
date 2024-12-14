@@ -4,16 +4,12 @@ import { Field } from "../ui/field";
 import { PasswordInput } from "../ui/password-input";
 import { PASSWORD_REGEX } from "../../constants/regex";
 import { FC, memo } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { userProps } from "../page/Register";
+import { passwordfield } from "../../types/atoms";
 
-type passwordfield = {
-    errors: FieldErrors<userProps>
-    register: UseFormRegister<userProps>
-}
+
 
 export const PasswordForm: FC<passwordfield> = memo((props) => {
-    const { errors, register } = props
+    const { errors, register, login } = props
     return (
 
         <>
@@ -33,9 +29,11 @@ export const PasswordForm: FC<passwordfield> = memo((props) => {
                     placeholder="Enter your password"
                 />
             </Field>
-            <Text fontSize="sm">
-                パスワードは1文字以上の大文字、1文字以上の数字を組み合わせてください。
-            </Text>
+            {login ? <></> :
+                <Text fontSize="sm">
+                    パスワードは1文字以上の大文字、1文字以上の数字を組み合わせてください。
+                </Text>
+            }
         </>
     )
 })
