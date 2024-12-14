@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Center, Spinner } from "@chakra-ui/react";
 import { usefetchtaskdetail } from "../../hooks/fetchTaskdetail";
 import { TaskDetailCard } from "../organism/TaskDetailCard";
+import { Header } from "../template/header";
 
 export const TaskDetail = (() => {
     const { loading, gettaskdetail, task } = usefetchtaskdetail();
@@ -10,7 +11,7 @@ export const TaskDetail = (() => {
     }, [gettaskdetail])
 
     return (
-        <>
+        <Header>
             {loading ? (
                 <Center h="800px">
                     <Spinner />
@@ -25,6 +26,6 @@ export const TaskDetail = (() => {
                     />
                 </Center>
             )}
-        </>
+        </Header>
     )
 })
