@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Task } from "../models/Task";
 import { registTask, taskstype } from "../types/typesoftodo";
+import mongoose from "mongoose";
 
 export const addtask = async (
   req: Request<{}, {},registTask>,
@@ -20,6 +21,7 @@ export const addtask = async (
   // 新しいタスクの作成
   const newtask = new Task({
     title: payload.title,
+    description:payload.description,
     status: payload.status,
   });
 
@@ -32,3 +34,10 @@ export const addtask = async (
     res.status(500).json({ msg: "Internal Server Error" });
   }
 };
+
+export const getdetail=(async(req:Request<{id:string}>,res:Response)=>{
+    const id=req.params.id;
+    const objectid=id;
+    const task=await Task.findOne({_id:new mongoose.Types.ObjectId(objectid)});
+    res.status(200).json(task);
+})

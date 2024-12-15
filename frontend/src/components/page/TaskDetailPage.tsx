@@ -8,8 +8,10 @@ import { ObjectId } from "bson";
 export const TaskDetail = (() => {
     const { loading, gettaskdetail, task } = usefetchtaskdetail();
     useEffect(() => {
-        gettaskdetail();
-    }, [gettaskdetail])
+        const gettask = (async () => await gettaskdetail());
+        gettask();
+        console.log(task?._id);
+    }, [])
 
     return (
         <Header>
@@ -21,9 +23,9 @@ export const TaskDetail = (() => {
                 <Center h="800px">
                     <TaskDetailCard
                         key={task?._id as (Key | null | undefined) & ObjectId}
-                        _id={task?._id as ObjectId ?? "undefined"}
+                        _id={task?._id as ObjectId}
                         title={task?.title ?? "No Title"}
-                        body={task?.body ?? "No Description"}
+                        body={task?.description?.length === 0 ? "No Description" : task?.description}
                         status={task?.status ?? false}
                     />
                 </Center>

@@ -6,7 +6,7 @@ export const usePutTask=(()=>{
     const [loading,setloading]=useState<boolean>(false);
     const putTask=useCallback(() => {
         setloading(true)
-        axios.put(`https://jsonplaceholder.typicode.com/todos/${putid}`).then((res) => {
+        axios.put(`/api/task/${putid}`).then((res) => {
             console.log(putid);
             setputid(res.data.id)
             console.log(res.data);

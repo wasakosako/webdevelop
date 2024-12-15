@@ -11,11 +11,13 @@ const gettaskdetail = useCallback(() => {
     setloading(true);
     //todo:/api/${id}に変更する
     axios.get<tasktypedetail>(`/api/task/taskdetail/${id}`).then((value) => {
-        const { _id, title, status, body } = value.data
+        const { _id, title, status, body,description } = value.data
+        console.log(_id);
         settask({
             key:_id,
-            _id,
+            _id:_id,
             title,
+            description,
             status,
             body
         })
