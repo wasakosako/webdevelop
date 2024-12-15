@@ -1,5 +1,5 @@
 import axios from "axios";
-import { registTask, tasktype } from "../types/atoms";
+import { registTask} from "../types/atoms";
 
 const taskApi=axios.create({
     baseURL:"/api/task",

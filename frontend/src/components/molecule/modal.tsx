@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { DialogActionTrigger, DialogBackdrop, DialogBody, DialogCloseTrigger, DialogContent, DialogFooter, DialogHeader, DialogRoot, DialogTrigger } from "../ui/dialog";
+import { memo, ReactNode } from "react";
+import { DialogActionTrigger, DialogBackdrop, DialogCloseTrigger, DialogContent, DialogRoot, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Input, Textarea } from "@chakra-ui/react";
 import { FaPlus } from "react-icons/fa";
@@ -8,10 +8,11 @@ import { registTask, tasktype } from "../../types/atoms";
 import { Field } from "../ui/field";
 import { taskApis } from "../../api/task";
 import { toaster } from "../ui/toaster";
-import { tasksfectch } from "../organism/TaskList";
+import { ModalHeader } from "../atoms/modal/modalHeader";
+import { ModalBody } from "../atoms/modal/modalBody";
+import { ModalFooter } from "../atoms/modal/modalFooter";
 
-type reloadtype = Omit<tasksfectch, "loading" | "tasks">
-export const Modal = memo((props: reloadtype) => {
+export const Modal = memo((props: { reloadtype: () => void, button: ReactNode }) => {
 
     const {
         register,
@@ -31,7 +32,7 @@ export const Modal = memo((props: reloadtype) => {
             loading: { title: "Uploading..." }
         }
         )
-        props.getAllTasks();
+        props.reloadtype();
     })
 
     return (
@@ -42,22 +43,24 @@ export const Modal = memo((props: reloadtype) => {
                 <DialogContent>
                     <DialogCloseTrigger />
                     <form onSubmit={onSubmit}>
-                        <DialogHeader>
+                        <ModalHeader children={
                             <Field label="タスク名" invalid={!!errors.title} errorText="タスクを入力してください">
                                 <Input mt="2" {...register("title", { required: true })} />
                             </Field>
-                        </DialogHeader>
-                        <DialogBody >
+                        } />
+                        <ModalBody children={
                             <Field label="詳細" invalid={!!errors.description}>
                                 <Textarea {...register("description", { required: false })} />
                             </Field>
-                        </DialogBody>
-                        <DialogFooter>
-                            <DialogActionTrigger asChild>
-                                <Button variant="outline">Cancel</Button>
-                            </DialogActionTrigger>
-                            <Button type="submit">タスクを追加する</Button>
-                        </DialogFooter>
+                        } />
+                        <ModalFooter children={
+                            <>
+                                <DialogActionTrigger asChild>
+                                    <Button variant="outline">Cancel</Button>
+                                </DialogActionTrigger>
+                                <Button type="submit">タスクを追加する</Button>
+                            </>
+                        } />
                     </form>
                 </DialogContent>
             </DialogRoot >

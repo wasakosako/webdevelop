@@ -4,6 +4,12 @@ import { registTask, taskstype } from "../types/typesoftodo";
 import mongoose, { ObjectId } from "mongoose";
 import { router } from "../api-routes/task";
 
+
+export const fetchAllTask=async (req: Request, res: Response) => {
+  const allTasks = await Task.find({});
+  res.status(200).json(allTasks);
+}
+
 export const addtask = async (
   req: Request<{}, {},registTask>,
   res: Response

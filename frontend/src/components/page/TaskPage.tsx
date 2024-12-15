@@ -8,6 +8,8 @@ import { userProps } from "../../types/atoms";
 import { authApi } from "../../api/auth";
 import { useAuth } from "../../context/authContext";
 import { usefetchAllTasks } from "../../hooks/fetchAllTasks";
+import { FaPlus } from "react-icons/fa";
+import { Button } from "../ui/button";
 
 export const TaskPage = (() => {
     const navigate = useNavigate();
@@ -40,7 +42,7 @@ export const TaskPage = (() => {
         <Header>
             <VStack>
                 <Flex mr={{ base: "200px", md: "820px" }}>
-                    <Modal getAllTasks={getallTasks} />
+                    <Modal reloadtype={getallTasks} button={<Button variant="solid" backgroundColor="blue.300" mb="8" mt="8"><FaPlus />ADD</Button >} />
                 </Flex>
                 <TaskList tasks={tasks} loading={loading} getAllTasks={getallTasks} />
             </VStack>

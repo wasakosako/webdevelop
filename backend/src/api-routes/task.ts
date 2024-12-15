@@ -1,14 +1,9 @@
-import express, { Request, Response } from "express";
-import mongoose, { ObjectId } from "mongoose";
+import express from "express";
 import { requestErrorHandler } from "../helpers/helper";
-import { addtask, getdetail, puttask } from "../controllers/task";
-import { Task } from "../models/Task";
+import { addtask, fetchAllTask, getdetail, puttask } from "../controllers/task";
 export const router = express.Router();
 
-router.get("/fetchAll", async (req: Request, res: Response) => {
-  const allTasks = await Task.find({});
-  res.status(200).json(allTasks);
-});
+router.get("/fetchAll", requestErrorHandler(fetchAllTask));
 
 router.get("/taskdetail/:id", requestErrorHandler(getdetail));
 

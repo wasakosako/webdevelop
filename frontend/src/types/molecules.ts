@@ -1,12 +1,13 @@
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { userProps } from "./atoms";
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-export type HookInputfield = {
-  errors: FieldErrors<userProps>;
-  register: UseFormRegister<userProps>;
+export type HookInputfield<T extends FieldValues> = {
+  errors: FieldErrors<T>;
+  register: UseFormRegister<T>;
 };
 
-type AttributeOfField = {
+
+
+export type AttributeOfField = {
   label: string;
   required:string;
   pattern?: {
@@ -17,4 +18,3 @@ type AttributeOfField = {
   registedname:"username"|"email"|"password";
 };
 
-export type AttributeOfInputField = HookInputfield & AttributeOfField;
