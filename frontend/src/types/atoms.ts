@@ -1,9 +1,11 @@
 import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { ObjectId } from "bson"
 
 //タスクの型定義
 export type tasktype=
     {
-      id:string;
+      key:ObjectId;
+      _id:ObjectId;
       title: string;
       description?: string;
       status: boolean;
@@ -14,6 +16,8 @@ export type tasktype=
 type detail={
   body?:string;
 }
+
+export type registTask=Omit<tasktype,"key"|"_id">
 
 export type tasktypedetail=tasktype&detail;
 

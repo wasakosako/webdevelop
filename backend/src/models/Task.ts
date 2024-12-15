@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-
+import { ObjectId } from "mongodb";
 
 const taskSchema=new Schema(
     {
@@ -9,15 +9,14 @@ const taskSchema=new Schema(
         },
         description:{
             type:String,
-            required:true
+            default:""
         },
         status:{
             type:Boolean,
-            required:true
+            default:false
         },
         priority:{
             type:String,
-            required:true
         },
         duedate:{
             type:Date
@@ -25,4 +24,4 @@ const taskSchema=new Schema(
     },{timestamps:true}
 )
 
-const Task=model("Model",taskSchema);
+export const Task=model("Model",taskSchema);

@@ -7,9 +7,11 @@ import { useNavigate } from "react-router-dom";
 import { userProps } from "../../types/atoms";
 import { authApi } from "../../api/auth";
 import { useAuth } from "../../context/authContext";
+import { usefetchAllTasks } from "../../hooks/fetchAllTasks";
 
 export const TaskPage = (() => {
     const navigate = useNavigate();
+    const { loading, tasks, getallTasks } = usefetchAllTasks();
 
     const { user } = useAuth();
     useEffect(() => {
@@ -38,9 +40,9 @@ export const TaskPage = (() => {
         <Header>
             <VStack>
                 <Flex mr={{ base: "200px", md: "820px" }}>
-                    <Modal />
+                    <Modal getAllTasks={getallTasks} />
                 </Flex>
-                <TaskList />
+                <TaskList tasks={tasks} loading={loading} getAllTasks={getallTasks} />
             </VStack>
         </Header>
     )

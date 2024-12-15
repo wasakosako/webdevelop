@@ -10,17 +10,16 @@ export const usefetchAllTasks=(()=>{
     const getallTasks=useCallback(()=>{
         setloading(true);
         //todo:/api/getに変更する
-        axios.get("https://jsonplaceholder.typicode.com/todos/").then((res) => {
+        axios.get("/api/task/fetchAll").then((res) => {
             console.log(res);
             settasks(res.data);
-    
         }).catch((error) => {
             console.log(error);
         }).finally(() => {
             setloading(false);
         })
 
-    },[])
+    },[tasks])
 
     return {loading,tasks,getallTasks}
 })

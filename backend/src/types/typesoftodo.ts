@@ -1,11 +1,13 @@
 import { ObjectId } from "mongodb";
 
-export interface taskstype{
-    _id?:ObjectId;
+export type taskstype={
+    _id:ObjectId;
     title:string;
-    description:string;
+    description?:string;
     status:boolean;
-    priority:string;
+    priority?:string;
     createdAt?:Date;
     updatedAt?:Date;
 }
+
+export type registTask=Omit<taskstype,"_id">

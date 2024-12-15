@@ -14,7 +14,7 @@ export const TaskDetailCard = memo((props: tasktypedetail) => {
             <TCard title={props.title} body={props.body} footer={(<>
                 <Button variant="outline" onClick={(() => navigate(-1))}>戻る</Button>
                 <Button onClick={(() => {
-                    setputid(props.id);
+                    setputid(props._id.toString());
                     putTask();
                 })}>完了にする</Button>
             </>
