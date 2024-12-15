@@ -1,7 +1,8 @@
 import { Request, Response } from "express";
 import { Task } from "../models/Task";
 import { registTask, taskstype } from "../types/typesoftodo";
-import mongoose from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
+import { router } from "../api-routes/task";
 
 export const addtask = async (
   req: Request<{}, {},registTask>,
@@ -41,3 +42,15 @@ export const getdetail=(async(req:Request<{id:string}>,res:Response)=>{
     const task=await Task.findOne({_id:new mongoose.Types.ObjectId(objectid)});
     res.status(200).json(task);
 })
+
+export const puttask=(async (req: Request<{ taskId: ObjectId }>, res:Response) => {
+    console.log(req.params.taskId)
+  const id = req.params.taskId;
+  console.log(id);
+  try{
+      const result = await Task.findOneAndUpdate({ _id: id },{status:true});
+  }catch(err){
+    console.log(err);
+  }
+  res.status(200).json({ msg: "タスクを完了にしました" });
+});

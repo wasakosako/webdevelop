@@ -19,9 +19,8 @@ export const TaskList = memo((props: tasksfectch) => {
     return (
         <>{props.loading ? <Spinner /> :
             <>
-
                 {props.tasks?.map((data) => (
-                    < Task key={data._id as (Key | null | undefined) & ObjectId} _id={data._id} title={data.title} description={data.description} status={false} />
+                    < Task key={data._id as (Key | null | undefined) & ObjectId} _id={data._id} title={data.title} description={data.description} status={data.status} />
                 ))}
             </>
         }

@@ -8,8 +8,7 @@ import { ObjectId } from "bson";
 export const TaskDetail = (() => {
     const { loading, gettaskdetail, task } = usefetchtaskdetail();
     useEffect(() => {
-        const gettask = (async () => await gettaskdetail());
-        gettask();
+        gettaskdetail()
         console.log(task?._id);
     }, [])
 
