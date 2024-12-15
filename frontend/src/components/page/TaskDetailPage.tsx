@@ -1,14 +1,16 @@
-import { useEffect } from "react";
+import { Key, useEffect } from "react";
 import { Center, Spinner } from "@chakra-ui/react";
 import { usefetchtaskdetail } from "../../hooks/fetchTaskdetail";
 import { TaskDetailCard } from "../organism/TaskDetailCard";
 import { Header } from "../template/header";
+import { ObjectId } from "bson";
 
 export const TaskDetail = (() => {
     const { loading, gettaskdetail, task } = usefetchtaskdetail();
     useEffect(() => {
-        gettaskdetail();
-    }, [gettaskdetail])
+        gettaskdetail()
+        console.log(task?._id);
+    }, [])
 
     return (
         <Header>
@@ -19,9 +21,10 @@ export const TaskDetail = (() => {
             ) : (
                 <Center h="800px">
                     <TaskDetailCard
-                        id={task?.id ?? "undefined"}
+                        key={task?._id as (Key | null | undefined) & ObjectId}
+                        _id={task?._id as ObjectId}
                         title={task?.title ?? "No Title"}
-                        body={task?.body ?? "No Description"}
+                        body={task?.description?.length === 0 ? "No Description" : task?.description}
                         status={task?.status ?? false}
                     />
                 </Center>
